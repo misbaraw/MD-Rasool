@@ -1,0 +1,6 @@
+{
+  "name": "Artisan Kitchen Restaurant",
+  "description": "Seasonal wood-fired dining, craft cocktails, table reservations, and artisanal menu ordering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

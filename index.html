@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        try {
+          var target = typeof window !== 'undefined' ? window : globalThis;
+          var origFetch = target.fetch;
+          var activeFetch = typeof origFetch === 'function' ? origFetch.bind(target) : origFetch;
+
+          var descriptor = {
+            get: function () {
+              return activeFetch;
+            },
+            set: function (newFetch) {
+              activeFetch = typeof newFetch === 'function' ? newFetch.bind(target) : newFetch;
+            },
+            configurable: true,
+            enumerable: true,
+          };
+
+          try {
+            Object.defineProperty(target, 'fetch', descriptor);
+          } catch (_) {}
+
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            try {
+              Object.defineProperty(Window.prototype, 'fetch', descriptor);
+            } catch (_) {}
+          }
+
+          if (typeof globalThis !== 'undefined' && globalThis !== target) {
+            try {
+              Object.defineProperty(globalThis, 'fetch', descriptor);
+            } catch (_) {}
+          }
+        } catch (_) {}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artisan Kitchen Restaurant</title>
+    <meta name="description" content="Seasonal wood-fired dining, craft cocktails, table reservations, and artisanal menu ordering." />
+    <meta property="og:title" content="Artisan Kitchen Restaurant" />
+    <meta property="og:description" content="Seasonal wood-fired dining, craft cocktails, table reservations, and artisanal menu ordering." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-stone-50 text-stone-900 antialiased font-sans selection:bg-amber-100 selection:text-amber-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
